@@ -9,3 +9,5 @@ def getData():
     data ={"id":2,"name":"Anna"}
     return data
 
+@app.route("\postTest"):
+def postData():
