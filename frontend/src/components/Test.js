@@ -11,12 +11,10 @@ const Test = () => {
     console.log(res.data);
   };
     const [details, setDetails] = useState({ id: 1, name: "Test Subject 1" });
-     axios
-       .post("http://localhost:5000/postTest", 
+     axios.post("http://localhost:5000/postTest", 
        { id: 1, name: "Test Subject 1" }
        ).then
        (res=>{
-         console.log("got it",res);
         console.log(res.data);
        });
   return <h1>Test page</h1>;
