@@ -12,7 +12,7 @@
 .btn {
   text-transform: lowercase;
   width: 50%;
-  margin: 0 auto;
+  margin: 20px auto !important;
 }
 
 .row__group {
