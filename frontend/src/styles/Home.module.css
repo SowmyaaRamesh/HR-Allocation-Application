@@ -1,0 +1,23 @@
+.home {
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgb(226, 214, 214);
+  color: rgb(56, 56, 56);
+}
+
+.right__container {
+  height: 100vh;
+  display: flex;
+}
+
+.content {
+  padding: 2.5rem;
+  flex: 1;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: rgb(83, 83, 83);
+  margin: 15px 0;
+}
