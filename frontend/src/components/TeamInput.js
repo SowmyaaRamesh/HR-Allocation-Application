@@ -59,7 +59,7 @@ const TeamInput = () => {
             name="numberOfPeople"
             id="numberOfPeople"
             min="1"
-            max="10"
+            max="600"
             value={peopleNumInput}
             onChange={(e) => {
               setPeopleNumInput((prev) => setPeopleNumInput(e.target.value));
