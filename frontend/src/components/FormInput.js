@@ -1,17 +1,30 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
-import styles from "../styles/TeamInput.module.css";
+import styles from "../styles/FormInput.module.css";
 import EngineerTypeInput from "./EngineerTypeInput";
+import TeamComponent from "./TeamComponent";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
 
-const TeamInput = () => {
+const FormInput = () => {
   const [teamNumInput, setTeamNumInput] = useState(1);
   const [peopleNumInput, setPeopleNumInput] = useState(1);
+  const [teamRequirements, setTeamRequirements] = useState([]);
+
+  const addTeamRequirementsHandler = (details) => {
+    console.log(details);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
   };
+  let TeamComponentList = [];
+  for (let i = 0; i < teamNumInput; i++) {
+    TeamComponentList.push(<h5>Team {i + 1} details:</h5>);
+    TeamComponentList.push(
+      <TeamComponent addTeamRequirements={addTeamRequirementsHandler} />
+    );
+  }
   return (
     <div>
       <form className={styles.input__container} onSubmit={submitHandler}>
@@ -74,7 +87,7 @@ const TeamInput = () => {
           <AddCircleOutlineIcon fontSize="small" className={styles.addBtn} />
         </div>
 
-        <EngineerTypeInput />
+        {TeamComponentList}
 
         <Button className={styles.btn} variant="contained">
           Generate Team
@@ -84,4 +97,4 @@ const TeamInput = () => {
   );
 };
 
-export default TeamInput;
+export default FormInput;

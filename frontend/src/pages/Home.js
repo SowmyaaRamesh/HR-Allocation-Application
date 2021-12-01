@@ -2,18 +2,18 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import styles from "../styles/Home.module.css";
-import TeamInput from "../components/TeamInput";
+import FormInput from "../components/FormInput";
 
 const Home = () => {
   return (
     <div className={styles.home}>
       <Navbar />
-      <div className={styles.right__container}>
+      <div className={styles.bottom__container}>
         <Sidebar />
         <div className={styles.content}>
           <h1>Welcome back!</h1>
           <hr />
-          <TeamInput />
+          <FormInput />
         </div>
       </div>
     </div>
