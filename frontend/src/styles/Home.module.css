@@ -1,18 +1,21 @@
 .home {
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto;
   background-color: rgb(226, 214, 214);
   color: rgb(56, 56, 56);
 }
 
-.right__container {
-  height: 100vh;
+.bottom__container {
+  height: 100%;
   display: flex;
 }
 
 .content {
   padding: 2.5rem;
+  padding-top: 5.5rem;
+  margin-left: 13rem;
   flex: 1;
+  height: 100%;
 }
 
 hr {

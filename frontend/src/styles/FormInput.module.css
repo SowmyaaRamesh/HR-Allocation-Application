@@ -1,7 +1,7 @@
 .input__container {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 28vw;
-  height: 60vh;
+  height: fit-content;
   border-radius: 15px;
   padding: 18px;
   background-color: rgb(247, 242, 236);
@@ -44,4 +44,9 @@ select {
 .addBtn:hover {
   color: rgb(32, 32, 32);
   transform: scale(1.2);
+}
+
+h5 {
+  font-size: 0.79rem;
+  font-weight: normal;
 }
