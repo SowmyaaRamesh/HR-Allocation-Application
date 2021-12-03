@@ -12,16 +12,16 @@ print(template_dir)
 app = Flask(__name__,template_folder=template_dir)
 CORS(app)
 
-@app.route("/getTest")
-def getData():
-    data ={"id":2,"name":"Anna"}
-    return data
+# @app.route("/getTest")
+# def getData():
+#     data ={"id":2,"name":"Anna"}
+#     return data
 
-@app.route("/postTest",methods = ['GET', 'POST'])
+@app.route("/teamRequirements",methods = ['GET', 'POST'])
 def postData():
     if request.method == 'POST':
-        print(request.data)
         recvd=request.data.decode('utf-8')#dict(request.data)
+        print(recvd)
         jsonrecvd=json.loads(recvd)
         jsonrecvd.update({"recvd":1})
         return jsonrecvd
