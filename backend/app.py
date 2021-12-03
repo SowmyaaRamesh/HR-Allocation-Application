@@ -25,3 +25,5 @@ def postData():
         jsonrecvd=json.loads(recvd)
         jsonrecvd.update({"recvd":1})
         return jsonrecvd
+    else:
+        return {"sucess":1}
