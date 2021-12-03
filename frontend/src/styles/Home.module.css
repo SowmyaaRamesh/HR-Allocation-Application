@@ -1,5 +1,6 @@
 .home {
-  height: 100%;
+  height: fit-content;
+  min-height: 100vh;
   overflow: auto;
   background-color: rgb(226, 214, 214);
   color: rgb(56, 56, 56);
@@ -15,7 +16,8 @@
   padding-top: 5.5rem;
   margin-left: 13rem;
   flex: 1;
-  height: 100%;
+  /* overflow: hidden; */
+  height: fit-content;
 }
 
 hr {
