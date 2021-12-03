@@ -10,7 +10,7 @@ const EngineerTypeInput = (props) => {
       level: level,
     };
 
-    props.addHandler(data);
+    // props.addHandler({...team1Requirements,});
   }, [type, level]);
 
   return (
