@@ -54,5 +54,30 @@ for i in ans:
 probability_impact_row = []
 for col in range(160): probability_impact_row.append(round(sum(row[col] for row in ans),1)) #the last row probability impact is the maount of contribution of that lvl fot all 8 chaallenges
 
+def percent_to_hr(probability_impact_row):
+  hr_list = []
+  for frac in probability_impact_row: 
+    i = (frac/8.0)*100
+    if i >= 42: hr_list.append(7)
+    elif i>=36 and i<42: hr_list.append(7)
+    elif i>=30 and i<36: hr_list.append(6)
+    elif i>=24 and i<30: hr_list.append(5)
+    elif i>=12 and i<24: hr_list.append(4)
+    elif i>=8 and i<12: hr_list.append(3)
+    elif i>=6 and i<8: hr_list.append(2)
+    elif i>0: hr_list.append(1)
+    else: hr_list.append(0)
+  return hr_list
 
-print(len(ans),"*",len(ans[0]))
+
+probability_impact_list = []
+for rows in range(100000):
+  l = random_engg_levels()
+  responsibility_matrix = generate_responsibility_matrix(l)
+  probability_impact_row = []
+  for col in range(160): probability_impact_row.append(round(sum(row[col] for row in responsibility_matrix),1))
+  hr_row = percent_to_hr(probability_impact_row)
+  dataframe_row = probability_impact_row + hr_row
+  probability_impact_list.append(dataframe_row)
+
+

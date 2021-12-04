@@ -2,6 +2,7 @@ from flask import Flask,request,render_template
 from flask_cors import CORS
 import os
 import json
+from Jsonprocessor import ExtractMaxlevels
 
 template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 template_dir = os.path.join(template_dir, 'HR-Allocation-Application')
@@ -21,9 +22,7 @@ CORS(app)
 def postData():
     if request.method == 'POST':
         recvd=request.data.decode('utf-8')#dict(request.data)
-        print(recvd)
         jsonrecvd=json.loads(recvd)
-        jsonrecvd.update({"recvd":1})
-        return jsonrecvd
+        return json.dumps({"ans":ExtractMaxlevels(jsonrecvd)})
     else:
         return {"sucess":1}
