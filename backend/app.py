@@ -1,10 +1,15 @@
 from flask import Flask,request,render_template
+
 from flask_cors import CORS,cross_origin
 import os
 import json
 from Jsonprocessor import ExtractMaxlevels
 from json import JSONEncoder
 import numpy
+
+from flask_cors import CORS
+import os
+import json
 
 template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 template_dir = os.path.join(template_dir, 'HR-Allocation-Application')

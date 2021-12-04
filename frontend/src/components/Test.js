@@ -11,6 +11,7 @@ const Test = () => {
     console.log(res.data);
   };
     const [details, setDetails] = useState({ id: 1, name: "Test Subject 1" });
+
      axios.post("http://localhost:5000/postTest", 
        { id: 1, name: "Test Subject 1" }
        ).then
