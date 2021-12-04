@@ -1,13 +1,12 @@
-#from ML.ml_predictor import predictor
+from ML.ml_predictor import predictor
 import json
 
 def ExtractMaxlevels(reqr):
-    list_maxlvls=reqr["data"]["teamRequirements"]
-    print("jacobin",list_maxlvls)
-    maxlvl_dict=list_maxlvls[0]
+    list_maxlvls=reqr["data"]["teamRequirements"][0]
+    maxlvl_dict=dict(list_maxlvls)
     maxlvls=list()
-    for keys,vals in maxlvl_dict:
+    for keys,vals in maxlvl_dict.items():
         if(keys.find("lvl_type")!=-1):
             maxlvls.append(vals)
-    return maxlvls
+    return {"result":list(predictor(maxlvls))}
 

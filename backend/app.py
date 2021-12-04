@@ -1,9 +1,10 @@
 from flask import Flask,request,render_template
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 import os
 import json
 from Jsonprocessor import ExtractMaxlevels
-
+from json import JSONEncoder
+import numpy
 
 template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 template_dir = os.path.join(template_dir, 'HR-Allocation-Application')
@@ -12,19 +13,28 @@ template_dir = os.path.join(template_dir, 'HR-Allocation-Application')
 print(template_dir)
 
 app = Flask(__name__,template_folder=template_dir)
-CORS(app)
 
+CORS(app, support_credentials=True)
+app.debug=True
 # @app.route("/getTest")
 # def getData():
 #     data ={"id":2,"name":"Anna"}
 #     return data
+class NumpyArrayEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, numpy.ndarray):
+            return obj.tolist()
+        return JSONEncoder.default(self, obj)
 
 @app.route("/teamRequirements",methods = ['GET', 'POST'])
+@cross_origin(supports_credentials=True)
 def postData():
     if request.method == 'POST':
-
         recvd=request.data.decode('utf-8')#dict(request.data)
         jsonrecvd=json.loads(recvd)
-        return json.dumps({"ans":ExtractMaxlevels(jsonrecvd)})
+        #response.headers.add('Access-Control-Allow-Origin', '*')
+        result=ExtractMaxlevels(jsonrecvd)
+        print(result) #for convenience
+        return result
     else:
-        return {"sucess":1}
+        return {"Runing-Live":1}

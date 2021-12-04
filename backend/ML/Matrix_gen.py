@@ -46,13 +46,13 @@ def generate_responsibility_matrix(max_levels):
         responsibility_matrix.append(probability_impact)
     return responsibility_matrix
 
-l = random_engg_levels()
-print(l)
-ans = generate_responsibility_matrix(l)
-for i in ans:
-  print(len(i),sum(i))
-probability_impact_row = []
-for col in range(160): probability_impact_row.append(round(sum(row[col] for row in ans),1)) #the last row probability impact is the maount of contribution of that lvl fot all 8 chaallenges
+# l = random_engg_levels()
+# print(l)
+# ans = generate_responsibility_matrix(l)
+# for i in ans:
+#   print(len(i),sum(i))
+# probability_impact_row = []
+# for col in range(160): probability_impact_row.append(round(sum(row[col] for row in ans),1)) #the last row probability impact is the maount of contribution of that lvl fot all 8 chaallenges
 
 def percent_to_hr(probability_impact_row):
   hr_list = []
@@ -70,14 +70,14 @@ def percent_to_hr(probability_impact_row):
   return hr_list
 
 
-probability_impact_list = []
-for rows in range(100000):
-  l = random_engg_levels()
-  responsibility_matrix = generate_responsibility_matrix(l)
-  probability_impact_row = []
-  for col in range(160): probability_impact_row.append(round(sum(row[col] for row in responsibility_matrix),1))
-  hr_row = percent_to_hr(probability_impact_row)
-  dataframe_row = probability_impact_row + hr_row
-  probability_impact_list.append(dataframe_row)
+# probability_impact_list = []
+# for rows in range(100000):
+#   l = random_engg_levels()
+#   responsibility_matrix = generate_responsibility_matrix(l)
+#   probability_impact_row = []
+#   for col in range(160): probability_impact_row.append(round(sum(row[col] for row in responsibility_matrix),1))
+#   hr_row = percent_to_hr(probability_impact_row)
+#   dataframe_row = probability_impact_row + hr_row
+#   probability_impact_list.append(dataframe_row)
 
 
