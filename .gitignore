@@ -1,0 +1,5 @@
+__pycache__/
+.gitignore
+hrdetails.csv
+model1
+/__pycache__
