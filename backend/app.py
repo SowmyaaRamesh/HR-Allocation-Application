@@ -3,7 +3,7 @@ from flask import Flask,request,render_template
 from flask_cors import CORS,cross_origin
 import os
 import json
-from Jsonprocessor import ExtractMaxlevels
+from Jsonprocessor import ExtractMaxlevels,ExtractData
 from json import JSONEncoder
 import numpy
 
@@ -40,6 +40,8 @@ def postData():
         #response.headers.add('Access-Control-Allow-Origin', '*')
         result=ExtractMaxlevels(jsonrecvd)
         print(result) #for convenience
+        simplified_data = ExtractData(jsonrecvd)
+        print(simplified_data)
         return result
     else:
         return {"Runing-Live":1}
