@@ -42,6 +42,9 @@ def postData():
         print(result) #for convenience
         simplified_data = ExtractData(jsonrecvd)
         print(simplified_data)
+        
         return result
     else:
         return {"Runing-Live":1}
+
+app.run(port="4000")
