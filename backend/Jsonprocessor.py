@@ -4,6 +4,8 @@ import json
 import pandas as pd
 import sqlite3
 from flask import send_file
+import io
+from pandas.io.excel import ExcelWriter
 db_filename = 'hr.db'
 professions=["sdn","sde","nfit","ne"]
 list_of_names=[[[]for i in range(5)]for i in range(len(professions))]#maxlvls
@@ -145,7 +147,10 @@ def ExtractMaxlevels(reqr):
         print(Df_main[i].head())
         Df_main[i].to_excel(writer,sheet_name='Team{}'.format(i))
     writer.save()
-    file=send_file('pandas_multiple.xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',True)
+    return send_file(open("pandas_multiple.xlsx",'rb'),attachment_filename="pandas_multiple.xlsx")
+    resp = make_response(file)
+    return resp
+    return 
     res=make_response(file)
     return res
     return {"result":result}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/FormInput.module.css";
 import Button from "@mui/material/Button";
 import axios from "axios";
-
+import saveAs from "file-saver";
 
 const FormInput = () => {
   const [teamNumInput, setTeamNumInput] = useState(1);
@@ -42,12 +42,7 @@ const FormInput = () => {
       teamRequirements: teamRequirements,
     };
     // console.log(data);
-    function s2ab(s) {
-      var buf = new ArrayBuffer(s.length);
-      var view = new Uint8Array(buf);
-      for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-      return buf;
-    }
+ 
 
     axios
       .post("http://localhost:5000/teamRequirements", {
@@ -55,20 +50,24 @@ const FormInput = () => {
         responseType: 'blob',
       })
       .then((res) => {
-        const contDis = res.headers["content-disposition"]
-        const filename = "hello.xlsx" ;
-        const data = res.data;
-        const blob = new Blob([s2ab(data)], {
-          type: ''
-      });
-        const link = document.createElement("a");
+      //   const contDis = res.headers["content-disposition"]
+      //   const filename = "hello.xlsx" ;
+      //   const data = res.data;
+      //   const blob = new Blob([s2ab(data)], {
+      //     type: ''
+      // });
+      //   const link = document.createElement("a");
         
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);       //fileDownload(res.data,"wanted.xlsx");
+      //   link.href = URL.createObjectURL(blob);
+      //   link.download = filename;
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link);       //fileDownload(res.data,"wanted.xlsx");
         //console.log(res);
+        const dirtyFileName = res.headers['content-disposition'];
+        const fileName = dirtyFileName+".xlsx";
+       const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        saveAs(blob, fileName);
       });
   };
 
