@@ -46,3 +46,8 @@ hr {
   background: rgb(83, 83, 83);
   margin: 15px 0;
 }
+
+.download__link {
+  text-decoration: none;
+  color: white;
+}

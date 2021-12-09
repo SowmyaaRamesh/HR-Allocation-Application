@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styles from "../styles/FormInput.module.css";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import saveAs from "file-saver";
+// import saveAs from "file-saver";
 
-const FormInput = () => {
+const FormInput = (props) => {
   const [teamNumInput, setTeamNumInput] = useState(1);
   const [peopleNumInput, setPeopleNumInput] = useState(1);
+  const [msg, setMsg] = useState("");
 
   const [teamRequirements, setTeamRequirements] = useState([
     {
@@ -42,33 +43,17 @@ const FormInput = () => {
       teamRequirements: teamRequirements,
     };
     // console.log(data);
- 
 
     axios
       .post("http://localhost:5000/teamRequirements", {
         data: data,
-        responseType: 'blob',
       })
       .then((res) => {
-      //   const contDis = res.headers["content-disposition"]
-      //   const filename = "hello.xlsx" ;
-      //   const data = res.data;
-      //   const blob = new Blob([s2ab(data)], {
-      //     type: ''
-      // });
-      //   const link = document.createElement("a");
-        
-      //   link.href = URL.createObjectURL(blob);
-      //   link.download = filename;
-      //   document.body.appendChild(link);
-      //   link.click();
-      //   document.body.removeChild(link);       //fileDownload(res.data,"wanted.xlsx");
-        //console.log(res);
-        const dirtyFileName = res.headers['content-disposition'];
-        const fileName = dirtyFileName+".xlsx";
-       const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        saveAs(blob, fileName);
+        // props.setIsDisabled(false);
+        setMsg("Download link available");
+        console.log(res);
       });
+    e.preventDefault();
   };
 
   const handleTeamNumInput = (e) => {
@@ -92,6 +77,7 @@ const FormInput = () => {
     <div>
       <form className={styles.input__container} onSubmit={submitHandler}>
         <h2> Optimal Team Allocation</h2>
+        <p>{msg}</p>
         <label htmlFor="numberOfTeams">Number of teams</label>
 
         <div className={styles.row__group}>

@@ -40,9 +40,8 @@ def postData():
         #response.headers.add('Access-Control-Allow-Origin', '*')
         result=ExtractMaxlevels(jsonrecvd)
         print(result) #for convenience
-        simplified_data = ExtractData(jsonrecvd)
-        print(simplified_data)
-        
+        # simplified_data = ExtractData(jsonrecvd)
+        # print(simplified_data)   
         return result
     else:
         return {"Runing-Live":1}

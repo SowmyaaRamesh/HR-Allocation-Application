@@ -141,19 +141,21 @@ def ExtractMaxlevels(reqr):
             except Exception as e:
                 print("Exception: ", temp,e)
     print("came last")
-    writer = pd.ExcelWriter('pandas_multiple.xlsx', engine='xlsxwriter')
+    path = "../frontend/public/assets/"
+    writer = pd.ExcelWriter(path+'pandas_multiple.xlsx', engine='xlsxwriter')
     for i in range(len(Df_main)):
         print("created")
         print(Df_main[i].head())
         Df_main[i].to_excel(writer,sheet_name='Team{}'.format(i))
     writer.save()
-    return send_file(open("pandas_multiple.xlsx",'rb'),attachment_filename="pandas_multiple.xlsx")
-    resp = make_response(file)
-    return resp
-    return 
-    res=make_response(file)
-    return res
-    return {"result":result}
+    return "ok"
+    # return send_file(open(path+"pandas_multiple.xlsx",'rb'),attachment_filename="pandas_multiple.xlsx")
+    # resp = make_response(file)
+    # return resp
+    # return 
+    # res=make_response(file)
+    # return res
+    # return {"result":result}
     
 
 
