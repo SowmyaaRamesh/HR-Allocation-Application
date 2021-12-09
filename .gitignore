@@ -1,8 +1,8 @@
-backend/__pycache__/
-.gitignore
+/backend/ML/__pycache__/
+backend/ML/__pycache__
 hrdetails.csv
 model1
 /model1
 /__pycache__
 /__pycache__/
-/__pycache__/
+__pycache__/

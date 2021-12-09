@@ -28,3 +28,7 @@ def ExtractData(jsondata):
         del data[""]
         simplified_data.append(data)
     return simplified_data
+
+data={}
+data[""]="hello"
+print(data[""])
