@@ -3,6 +3,7 @@ import styles from "../styles/FormInput.module.css";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
+
 const FormInput = () => {
   const [teamNumInput, setTeamNumInput] = useState(1);
   const [peopleNumInput, setPeopleNumInput] = useState(1);
@@ -41,12 +42,33 @@ const FormInput = () => {
       teamRequirements: teamRequirements,
     };
     // console.log(data);
+    function s2ab(s) {
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
     axios
       .post("http://localhost:5000/teamRequirements", {
         data: data,
+        responseType: 'blob',
       })
       .then((res) => {
-        console.log(res.data);
+        const contDis = res.headers["content-disposition"]
+        const filename = "hello.xlsx" ;
+        const data = res.data;
+        const blob = new Blob([s2ab(data)], {
+          type: ''
+      });
+        const link = document.createElement("a");
+        
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);       //fileDownload(res.data,"wanted.xlsx");
+        //console.log(res);
       });
   };
 
