@@ -80,12 +80,16 @@ list_of_names[index][i].append(tuple(name,var))
 
 def ExtractMaxlevels(reqr):
     list_maxlvls=reqr["data"]["teamRequirements"][0]
+    print(list_maxlvls)
+    return
     maxlvl_dict=dict(list_maxlvls)
     maxlvls=list()
     for keys,vals in maxlvl_dict.items():
         if(keys.find("lvl_type")!=-1):
-            maxlvls.append(vals)
+            maxlvls.append(int(vals))
+    print("GOT",maxlvls)
     result=list(predictor(maxlvls))
+    return [1,2]
     #
     #extracting using table col formula, instead of getting from list
     Teams=[]

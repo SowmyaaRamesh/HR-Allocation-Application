@@ -38,6 +38,8 @@ def postData():
         recvd=request.data.decode('utf-8')#dict(request.data)
         jsonrecvd=json.loads(recvd)
         #response.headers.add('Access-Control-Allow-Origin', '*')
+        print(jsonrecvd)
+        return {"pika":1}
         result=ExtractMaxlevels(jsonrecvd)
         print(result) #for convenience
         # simplified_data = ExtractData(jsonrecvd)
