@@ -31,7 +31,7 @@ def trainer():
     #n_scores = absolute(n_scores)
     #print('MAE: %.3f (%.3f)' % (mean(n_scores), std(n_scores)))
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
-    print(files,"is not in ",os.curdir)
+    # print(files,"is not in ",os.curdir)
     if("model1" not in files):
         model.fit(X, y)
         pickle.dump(model, open("model1",'wb'))

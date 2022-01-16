@@ -15,7 +15,6 @@ template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(_
 template_dir = os.path.join(template_dir, 'HR-Allocation-Application')
 # template_dir = os.path.join(template_dir, 'frontend')
 
-print(template_dir)
 
 app = Flask(__name__,template_folder=template_dir)
 
@@ -35,15 +34,13 @@ class NumpyArrayEncoder(JSONEncoder):
 @cross_origin(supports_credentials=True)
 def postData():
     if request.method == 'POST':
-        recvd=request.data.decode('utf-8')#dict(request.data)
+        recvd=request.data#.decode('utf-8')#dict(request.data)
         jsonrecvd=json.loads(recvd)
         #response.headers.add('Access-Control-Allow-Origin', '*')
-        print(jsonrecvd)
-        return {"pika":1}
+        print("weeapp.y ",request.data)
         result=ExtractMaxlevels(jsonrecvd)
-        print(result) #for convenience
         # simplified_data = ExtractData(jsonrecvd)
-        # print(simplified_data)   
+        # print(simplified_data)  
         return result
     else:
         return {"Runing-Live":1}

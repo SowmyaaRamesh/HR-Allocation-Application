@@ -27,28 +27,27 @@ def generate_responsibility_matrix(max_levels):
               for levels in range(4):
                 probability_impact.append(0.0)
             else:
-              pass
-    print("GOT",type(max_level))
-    return
-    # pass
-    #           for levels in range(max_level):
-    #             fill = random.choices([0,1],weights=(95,5),k=1)[0]
-    #             if(fill and (sum(probability_impact)<1)):
-    #                 if(sum(probability_impact)<0.7):
-    #                     probability_impact.append(get_random_value())   
-    #                 else:
-    #                     probability_impact.append(round(0.9 - sum(probability_impact),1))
-    #             else:
-    #                 probability_impact.append(0.0)
-    #     if sum(probability_impact)!=1:
-    #       choice_list = []
-    #       for i in range(len(probability_impact)):
-    #         if probability_impact[i]!=0: choice_list.append(i)
-    #       if len(choice_list)==0: random_num = 4
-    #       else: random_num = random.choice(choice_list)
-    #       probability_impact[random_num] += round(0.9-sum(probability_impact),1)   
-    #     responsibility_matrix.append(probability_impact)
-    # return responsibility_matrix
+              for levels in range(4):
+                if(levels < max_level):
+                  fill = random.choices([0,1],weights=(95,5),k=1)[0]
+                  if(fill and (sum(probability_impact)<1)):
+                      if(sum(probability_impact)<0.7):
+                          probability_impact.append(get_random_value())   
+                      else:
+                          probability_impact.append(round(0.9 - sum(probability_impact),1))
+                  else:
+                      probability_impact.append(0.0)
+                else:
+                      probability_impact.append(0.0)
+        if sum(probability_impact)!=1:
+          choice_list = []
+          for i in range(len(probability_impact)):
+            if probability_impact[i]!=0: choice_list.append(i)
+          if len(choice_list)==0: random_num = 4
+          else: random_num = random.choice(choice_list)
+          probability_impact[random_num] += round(0.9-sum(probability_impact),1)   
+        responsibility_matrix.append(probability_impact)
+    return responsibility_matrix
 
 # l = random_engg_levels()
 # print(l)
@@ -82,6 +81,7 @@ def gen_probability_impact_row(responsibility_matrix,teams):
   responsibility_matrix  = pad(responsibility_matrix,teams)
   #for i in responsibility_matrix: print(len(i),sum(i))
   probability_impact_row = []
+  # print("EEEEEEEEEEEEEEEEe",len(responsibility_matrix[0]))
   for col in range(160): 
     probability_impact_row.append(round(sum(row[col] for row in responsibility_matrix),1))
   for i in range(0,16*teams,16):

@@ -8,21 +8,22 @@ import io
 from pandas.io.excel import ExcelWriter
 db_filename = 'hr.db'
 professions=["sdn","sde","nfit","ne"]
-list_of_names=[[[]for i in range(5)]for i in range(len(professions))]#maxlvls
+list_of_names=[[[]for i in range(5)]for i in range(len(professions))]#maxlvls NOTEEEEEEE THIS IS ONE BASED INDEXING. 1 to 4
 def check(no_of_people):
     ind=-1
     hist=dict()
     with sqlite3.connect(db_filename) as conn:
         cursor = conn.cursor()
         rows=cursor.execute("""SELECT profession, count(profession) FROM employee GROUP BY profession""")
-        for prof,count in rows:
-            hist[prof]=count
-    print("hello",no_of_people)
+        for proflvl,count in rows:
+            hist[proflvl]=count
+    # print("hello",no_of_people)
     for p in professions:
         for i in range(1,5):
             var=p+str(i)
             if(hist[var]<no_of_people[ind][i-1]):
                 return 0
+    # print("weee",hist,"weee")
     ind=-1
     with sqlite3.connect(db_filename) as conn:    
         cursor = conn.cursor()
@@ -32,13 +33,15 @@ def check(no_of_people):
                 var=p+str(i)
                 rows=cursor.execute("""SELECT  name, id FROM employee WHERE profession=(?) limit (?)""",[var,no_of_people[ind][i-1]])     
                 rows=list(rows)
-                #print(rows[:5])
+                # print("weeerows",rows[:],"noofp=",no_of_people[ind][i-1],"weee")
                 #change available in db       
                 for r in rows:
                     name,id =r
                     name=str(id)+'_'+name
-                    list_of_names[ind][i].append(tuple([name,var])) #ind is the prof , DN I IS THW LVLV
-                print(ind,i)
+                    list_of_names[ind][i].append(tuple([name,var])) #ind is the prof , and i is the lvl
+                    # no_of_people[ind][i-1]-=1
+                # print("weee",list_of_names[ind]," Prof=",ind,"weee")
+                # print(ind,i)
     
     return 1
 
@@ -79,18 +82,16 @@ list_of_names[index][i].append(tuple(name,var))
 
 
 def ExtractMaxlevels(reqr):
-    list_maxlvls=reqr["data"]["teamRequirements"][0]
-    print(list_maxlvls)
-    return
-    maxlvl_dict=dict(list_maxlvls)
+    list_maxlvls=reqr["data"]["teamRequirements"]
+
+    # print(list_maxlvls)
     maxlvls=list()
-    for keys,vals in maxlvl_dict.items():
-        if(keys.find("lvl_type")!=-1):
-            maxlvls.append(int(vals))
-    print("GOT",maxlvls)
-    result=list(predictor(maxlvls))
-    return [1,2]
-    #
+    for maxlvl_dict in list_maxlvls:
+        maxlvl_dict=dict(maxlvl_dict)
+        for keys,vals in maxlvl_dict.items():
+            if(keys.find("lvl_type")!=-1):
+                maxlvls.append(int(vals))
+    result=list(predictor(maxlvls)) #the number of people in each prof lvl is returned
     #extracting using table col formula, instead of getting from list
     Teams=[]
     max_posible_no_teams=10
@@ -102,7 +103,15 @@ def ExtractMaxlevels(reqr):
     temp=[]
     non_zeroteam=0
     no_of_ppl_perlvl=[[0  for i in range(max_possible_lvls)] for i in range(maxprofessions)]
-    print(len(result))
+    print("weee")
+    for i in range(len(result)):
+        if(i/16==2):
+            break
+        if(i%16==0):
+            print(" ")
+        print(result[i],end=" ")
+    
+    print("weee")
    
     for i in range(max_posible_no_teams):
         index=i*teamsize
@@ -120,11 +129,17 @@ def ExtractMaxlevels(reqr):
         if(non_zeroteam):
             Teams.append(prof)
     flag=check(no_of_ppl_perlvl)
+    #print("weeee no of ppl per lvl, in block profs for all teams",no_of_ppl_perlvl,"weee")
+    for p in range(len(no_of_ppl_perlvl)):
+        for i in range(len(no_of_ppl_perlvl[p])):
+            if(len(list_of_names[p][i+1])!=no_of_ppl_perlvl[p][i]):
+                print("error in given and fetch from db")
+                # print("wee  P=",p,"I=",i,"weee")
     if(flag==0):
         return {"result":"number of peeople is less"}
-    Df_main=[pd.DataFrame() for i in range(len(Teams))]
+    Df_main=[pd.DataFrame(index=range(20)) for i in range(len(Teams))]
     ind=-1
-
+    # print("wee teams ",Teams,"weeee")
     for team in Teams:
         ind=ind+1
         for prof_ind in range(len(team)) :
@@ -132,24 +147,25 @@ def ExtractMaxlevels(reqr):
             temp=[]
             for lvl in range(max_possible_lvls):
                 count=int(prof[lvl])
-                print("Extend: ",list_of_names[prof_ind][lvl][0:count],professions[prof_ind])
-                temp.extend(list_of_names[prof_ind][lvl][0:count])
-                list_of_names[prof_ind][lvl]=list_of_names[prof_ind][lvl][count:] #remaining is assigned
+                # print("Extend: ",list_of_names[prof_ind][lvl][0:count],professions[prof_ind])
+                temp.extend(list_of_names[prof_ind][lvl+1][0:count]) #tlist of names is one based
+                list_of_names[prof_ind][lvl+1]=list_of_names[prof_ind][lvl+1][count:] #remaining is assigned #one based
             try:
-                print(temp," in ")
+                # print("weeee Team =",ind,"professiion=",prof_ind,temp," weeee ")
                 temp=pd.Series(temp)
+                # print("weeee Team =",ind,"professiion=",prof_ind,temp," weeee ")
                 Df_main[ind][professions[prof_ind]]=temp
-                print(Df_main[ind].head())
-                print(ind,professions[prof_ind])
+                # print(Df_main[ind].head())
+                # print(ind,professions[prof_ind])
                 temp=[]
             except Exception as e:
                 print("Exception: ", temp,e)
-    print("came last")
+    # print("came last")
     path = "../frontend/public/assets/"
     writer = pd.ExcelWriter(path+'pandas_multiple.xlsx', engine='xlsxwriter')
     for i in range(len(Df_main)):
-        print("created")
-        print(Df_main[i].head())
+        # print("created")
+        # print(Df_main[i].head())
         Df_main[i].to_excel(writer,sheet_name='Team{}'.format(i))
     writer.save()
     return "ok"
