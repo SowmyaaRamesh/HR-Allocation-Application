@@ -1,10 +1,9 @@
 # HR-Allocation-Application
-Front end
-npm i cloud.js
-npm start from frontend folder
+**Front end**
+1. npm i cloud.js
+2. npm start from frontend folder
 
 
-
-Backend
-pip install -r requirements.txt
-flask run
+**Backend**
+1. pip install -r requirements.txt
+2. flask run
