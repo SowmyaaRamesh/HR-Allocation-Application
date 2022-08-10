@@ -1,0 +1,28 @@
+\par\noindent\rule{\textwidth}{0.4pt}
+\textbf{Algorithm:} Generation of Responsibility Matrix
+\vspace{4pt}
+\hrule
+\vspace{3pt}
+\noindent\textbf{Input: }NumberOfChallenges - number of identified challenges\\ \hspace*{12mm}TypesOfEngineers - number of classes of engineers\\\hspace*{12mm}Levels - number of levels in a particular engineer class\\\hspace*{12mm}N - Number of teams \\\hspace*{12mm}M[ ][ ] - Maximum required experience of engineers in each team\vspace{2mm}\\
+\vspace{4mm}
+\noindent\textbf{Output: }Responsibility[ ][ ] - Responsibility Matrix\\
+1. Initialize Responsibility[ ] of size(NumberOfChallenges)\\      
+2. \textbf{for} i = 1..NumberOfChallenges\\
+3. Initialize challenge[ ] of size(N x TypesOfEngineers x Levels)\\
+4. \hspace*{0.5cm}\textbf{for} j = 1..TypesOfEngineers\\
+5. \hspace*{1cm}\textbf{if} M[i][j] == 0\\
+6. \hspace*{1.5cm}\textbf{for} k = 1..Levels\\
+7. \hspace*{2cm}Append 0 to challenge[ ]\\
+8. \hspace*{1.5cm} \textbf{end for}\\
+9. \hspace*{1cm}\textbf{else}\\
+10. \hspace*{1.5cm}\textbf{for} k = 1..Levels\\
+11. \hspace*{2cm}priority = randomly drawn from U(0,1)\\
+12. \hspace*{2cm}// U is the uniform distribution over the range [0,1]\\
+13. \hspace*{2.0cm}Append priority to challenge[ ]\\
+14. \hspace*{1.5cm}\textbf{end for}\\
+15. \hspace*{1.0cm}\textbf{end if}\\
+16. \hspace*{0.5cm}\textbf{end for}\\
+17. \hspace*{0.5cm}Append challenge[ ] to Responsibility[ ]\\
+18. \hspace*{0.5mm} \textbf{end for}\\
+19. \textbf{return} Responsibility\\
+\hrule
