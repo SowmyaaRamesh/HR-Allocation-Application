@@ -1,0 +1,52 @@
+.input__container {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 28vw;
+  height: fit-content;
+  border-radius: 15px;
+  padding: 2rem;
+  background-color: rgb(247, 242, 236);
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  text-transform: lowercase;
+  width: 50%;
+  margin: 20px auto !important;
+}
+
+.row__group {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  margin-left: 8px;
+  margin-right: 10px;
+}
+input,
+select {
+  font-size: 1rem;
+  color: rgb(71, 71, 71);
+  outline: none;
+  margin: 15px 5px;
+  margin-top: 10px;
+}
+
+.addBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.addBtn:hover {
+  color: rgb(32, 32, 32);
+  transform: scale(1.2);
+}
+
+h5 {
+  font-size: 0.79rem;
+  font-weight: normal;
+}

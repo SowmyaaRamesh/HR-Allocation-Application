@@ -1,0 +1,15 @@
+.navbar {
+  width: 100vw;
+  height: 3.5rem;
+  background: linear-gradient(to right, #24c6dc, #514a9d);
+  position: fixed;
+  z-index: 2;
+}
+
+.user__icon {
+  color: rgb(236, 236, 236);
+  position: absolute;
+  right: 20px;
+  margin: 10px 20px;
+  cursor: pointer;
+}

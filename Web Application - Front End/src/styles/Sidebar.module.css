@@ -1,0 +1,30 @@
+.sidebar {
+  height: 100%;
+  background-color: rgb(245, 237, 237);
+  width: 10vw;
+  margin-top: 0;
+  padding: 80px 5px;
+  color: rgb(87, 86, 86);
+  font-size: 1rem;
+  position: fixed;
+  z-index: 0;
+}
+
+ul > li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  list-style: none;
+  margin: 15px 9px;
+  border-radius: 8px;
+}
+
+ul > li:hover {
+  background-color: gray;
+  color: white;
+}
+
+li > span {
+  margin-left: 8px;
+}
