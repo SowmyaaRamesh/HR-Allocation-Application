@@ -26,9 +26,6 @@ Paper Link: -
       To run the front end:
            - install dependencies
            - execute 'npm start' from the front end folder
-<p align="center">
-  <img src="https://github.com/AAnirudh07/HR-Allocation-Application/blob/main/assets/frontend.JPG" />
-</p>
 
 
 **Backend**
@@ -40,3 +37,13 @@ Paper Link: -
             - install requirements (pip install -r requirements.txt)
             - execute 'flask run' from the back end folder
 
+<p align="center">
+      <img src="https://github.com/AAnirudh07/HR-Allocation-Application/blob/main/assets/frontend.JPG" />
+</p>
+
+**Tech Stack**
+<p align="center">
+      <a href="https://reactjs.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> 
+    <a href="https://flask.palletsprojects.com/en/2.2.x/" target="_blank"> <img src="https://github.com/get-icon/geticon/blob/master/icons/flask.svg" alt="nodejs" width="40" height="40"/> </a>​
+
+</p>
