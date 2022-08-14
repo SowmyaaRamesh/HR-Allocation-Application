@@ -37,8 +37,6 @@ Paper Link: -
             - install requirements (pip install -r requirements.txt)
             - execute 'flask run' from the back end folder
 
-**Tech Stack**
-
 <p align="center">
       <img src="https://github.com/AAnirudh07/HR-Allocation-Application/blob/main/assets/frontend.JPG" />
 </p>
