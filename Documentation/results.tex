@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Trim Size: 9.75in x 6.5in
+%% Text Area: 8in (include Runningheads) x 5in
+%% ws-ijseke.tex     22-2-07
+%% Tex file to use with ws-ijseke.cls written in Latex2E. 
+%% The content, structure, format and layout of this style file is the 
+%% property of World Scientific Publishing Co. Pte. Ltd. 
+%% Copyright 1995, 2002 by World Scientific Publishing Co. 
+%% All rights are reserved.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{ws-ijseke}
+ 
+\usepackage{xcolor}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+
+\begin{document}
+
+\markboth{Authors' Names}
+{Instructions for Typing Manuscripts (Paper's Title)}
+
+%%%%%%%%%%%%%%%%%%%%% Publisher's Area please ignore %%%%%%%%%%%%%%%
+%
+\catchline{}{}{}{}{}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{LeSS AGILE FRAMEWORK:  AN EMPIRICAL MODELLING TO PREDICT THE HUMAN RESOURCE ALLOCATION\footnote{For the title, try not to 
+use more than 3 lines. Typeset the title in 10 pt bold and uppercase.}}
+
+\section{Results and Analysis  \label{sec3}} \\
+Of the four candidate machine learning/deep learning models,  a multi-output regression model based on the decision tree algorithm was deployed to predict the team structure.  All models were compared quantitatively using the mean absolute error(MAE) metric.
+
+A data set consisting of 100,000 rows and 320 columns was synthesized for training and testing the regression models. The first 160 columns contain the probability impact(PI) values. The rationale behind having 160 columns is as follows - there are a maximum of 10 teams. Each team has a maximum of 4 different classes of employees. Each employee class has a maximum of 4 levels. Hence, there are 4*4*10=160 columns. The next 160 columns in the dataset contain the HR score corresponding to the previous 160 columns. The HR scores are computed from the probability impact matrix according to a standard staircase function. The dataset was stored as a CSV file. A detailed analysis of the models are provided below.
+\begin{table}[h]
+\begin{tabular}{|l|l|lll}
+\cline{1-2}
+\textbf{Model}                                    & \textbf{Mean Absolute Error(MAE)} &  &  &  \\ \cline{1-2}
+Multi-Layer Perceptron                            & 0.376                             &  &  &  \\ \cline{1-2}
+Linear Regression                                 & 0.272                             &  &  &  \\ \cline{1-2}
+Decision Tree based multi-output regression model & 0.233                             &  &  &  \\ \cline{1-2}
+SVM based multi-output regression model           & 0.215                             &  &  &  \\ \cline{1-2}
+\end{tabular}
+\end{table}
+
+\begin{figure}[htp]
+\includegraphics[width=10cm]{model_comparison.JPG}
+\centering
+\caption{Comparison of models}
+\end{figure}
+
+\begin{enumerate}
+\item \textbf{Neural network for multi-output regression}
+
+Since neural networks can support multiple outputs inherently, a simple multi-layer perceptron model(MLP) was developed.  The MLP has an input layer with 160 nodes, a dense layer with 160 nodes and an output layer with 160 nodes. The model had a mean absolute error of 0.376. However, this was not the biggest problem. Since the dataset was sparse, the model returned decimal values instead of integers. \\
+
+\item \textbf{Linear regression model}
+
+The linear regression model had a mean absolute error of 0.272. Just like the MLP model, the linear regression model returned decimal values instead of integers. \\
+
+\item \textbf{Decision Tree based multi-output regression model}
+
+The decision tree regressor was selected as the algorithm for predicting the team structure, albeit it’s fairly high mean absolute  error. The reason being that the decision tree regressor returned integer values. It was also able to correctly map the values for which no employees were required. \\
+
+\item \textbf{SVM based multi-output regression model}
+
+SVM was chained to make it predict multiple values. The first model in the sequence uses the input and predicts one output; the second model uses the input and the output from the first model to make a prediction; the third model uses the input and output from the first two models to make a prediction, and so on. This model had a mean absolute error of 0.215, the least among all the candidate models. However, the model wasn’t able to return integer values. \\
+
+The decision tree regressor was selected because of its relatively low mean absolute error and ability to produce integer values.  
+\end{enumerate}
+
+\end{document}
