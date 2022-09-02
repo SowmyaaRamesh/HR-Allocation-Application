@@ -99,37 +99,9 @@ const FormInput = (props) => {
             onChange={handleTeamNumInput}
           />
         </div>
-
-        <label htmlFor="numberOfPeople">Number of people available</label>
-        <div className={styles.row__group}>
-          <input
-            disabled
-            type="text"
-            name="peopleValue"
-            id="teamsValue"
-            value={peopleNumInput}
-            onChange={(e) => {
-              setPeopleNumInput((prev) => setPeopleNumInput(e.target.value));
-            }}
-          />
-          <input
-            type="range"
-            name="numberOfPeople"
-            id="numberOfPeople"
-            min="1"
-            max="600"
-            value={peopleNumInput}
-            onChange={(e) => {
-              setPeopleNumInput((prev) => setPeopleNumInput(e.target.value));
-            }}
-          />
-        </div>
-
-        <div className={styles.row__group}>
-          <label htmlFor="typeOfEngineer">
-            Choose requirements for the project
+          <label htmlFor="typeOfEngineer">Choose requirements for the project
           </label>
-        </div>
+       
 
         {teamRequirements.map((team, index) => (
           <div key={index}>
