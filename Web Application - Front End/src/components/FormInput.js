@@ -52,14 +52,17 @@ const FormInput = (props) => {
         // props.setIsDisabled(false);
         setMsg("Download link available");
         alert("The team structure can now be downloaded!");
+        
         console.log("Click download");
       });
+
+
     e.preventDefault();
   };
 
   const handleTeamNumInput = (e) => {
-    setTeamNumInput((prev) => setTeamNumInput(e.target.value));
-
+    // setTeamNumInput((prev) => setTeamNumInput(e.target.value));
+    setTeamNumInput(teamNumInput+1);
     setTeamRequirements([
       ...teamRequirements,
       {
@@ -74,8 +77,12 @@ const FormInput = (props) => {
       },
     ]);
   };
+  const handleTeamNumInputSub = (e)=>{
+    setTeamNumInput(teamNumInput-1);
+    setTeamRequirements(teamRequirements.slice(0,-1));
+  };
   return (
-    <div>
+    <div> 
       <form className={styles.input__container} onSubmit={submitHandler}>
         <h2> Optimal Team Allocation</h2>
         <p>{msg}</p>
@@ -90,17 +97,22 @@ const FormInput = (props) => {
             value={teamNumInput}
           />
           <input
-            type="range"
+            type="button"
             name="numberOfTeams"
             id="numberOfTeams"
-            min="1"
-            max="10"
-            value={teamNumInput}
-            onChange={handleTeamNumInput}
+            value={"+"}
+            onClick={handleTeamNumInput}
           />
+          <input
+            type="button"
+            name="numberOfTeams"
+            id="numberOfTeams"
+            value={"-"}
+            onClick={handleTeamNumInputSub}
+          />
+
         </div>
-          <label htmlFor="typeOfEngineer">Choose requirements for the project
-          </label>
+          <label htmlFor="typeOfEngineer">Choose requirements for the project</label>
        
 
         {teamRequirements.map((team, index) => (
@@ -110,8 +122,7 @@ const FormInput = (props) => {
               name="type1"
               id="type1"
               value={team.type1}
-              onChange={(e) => handleTeamRequirementsChange(index, e)}
-            >
+              onChange={(e) => handleTeamRequirementsChange(index, e)}>
               <option value="default">Type of engineer </option>
               <option value="sde">SDE</option>
               <option value="nfit">NFIT</option>
