@@ -6,7 +6,7 @@ Paper Link: -
 
 **Overview**
 
-      The figure below depicts the working of the system.
+      The working of the system is depicted below.
 <p align="center">
   <img src="https://github.com/AAnirudh07/HR-Allocation-Application/blob/main/assets/overall.JPG" />
 </p>
@@ -15,7 +15,7 @@ Paper Link: -
 **Dataset**
 
       A synthetically generated dataset was used to train the regression model. 
-      It is available for download (in the documentation folder). 
+      For more details, please refer to the documentation folder. 
 
 **Front end**
 
