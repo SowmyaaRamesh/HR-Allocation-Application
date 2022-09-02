@@ -43,7 +43,7 @@ const FormInput = (props) => {
       teamRequirements: teamRequirements,
     };
     // console.log(data);
-
+    alert("generating data, wait for the alert to download it");
     axios
       .post("http://localhost:5000/teamRequirements", {
         data: data,
@@ -51,7 +51,8 @@ const FormInput = (props) => {
       .then((res) => {
         // props.setIsDisabled(false);
         setMsg("Download link available");
-        console.log(res);
+        alert("The team structure can now be downloaded!");
+        console.log("Click download");
       });
     e.preventDefault();
   };
