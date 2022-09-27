@@ -162,7 +162,7 @@ def ExtractMaxlevels(reqr):
                 print("Exception: ", temp,e)
     # print("came last")
     path = "../Web Application - Front End/OutputFile/"
-    writer = pd.ExcelWriter(path+'pandas_multiple1.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('pandas_multiple1.xlsx', engine='xlsxwriter')
     Team_sizes=[]
     for i in range(len(Df_main)):
         # print("created")

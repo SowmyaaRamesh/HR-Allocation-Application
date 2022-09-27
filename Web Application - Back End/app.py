@@ -11,7 +11,7 @@ from flask_cors import CORS
 import os
 import json
 
-from flask import Flask,jsonify
+from flask import Flask,jsonify, send_from_directory, send_file
 
 template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 template_dir = os.path.join(template_dir, 'HR-Allocation-Application')
@@ -52,3 +52,8 @@ def postData():
         # return jsonify({"Runing-Live":1})
     else:
         return {"Runing-Live":1}
+
+
+@app.route('/download', methods=['GET', 'POST'])
+def download():
+    return send_file('pandas_multiple1.xlsx')
