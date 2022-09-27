@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import DownloadButton from "../components/DownloadButton";
 import OverviewChart from "../components/OverviewChart";
+import { CacheProvider } from "@emotion/react";
 // import saveAs from "file-saver";
 
 const FormInput = (props) => {
@@ -37,27 +38,43 @@ const FormInput = (props) => {
     setTeamRequirements(values);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
+    console.log("on submitting-----");
     e.preventDefault();
+    // console.log(e);
+
+    // e.stopPropagation();
+    // e.nativeEvent.stopImmediatePropagation();
     let data = {
       noOfTeams: teamNumInput,
       numberOfPeople: peopleNumInput,
       teamRequirements: teamRequirements,
     };
     // console.log(data);
-    alert("generating data, wait for the alert to download it");
-    axios
-      .post("http://localhost:5000/teamRequirements", {
-        data: data,
-      })
-      .then((res) => {
-        // props.setIsDisabled(false);
-        console.log(res);
-        setMsg("Download link available");
-        alert("The team structure can now be downloaded!");
-      });
+    console.log("generating data, wait for the alert to download it");
+    // const res = await axios.post("http://localhost:5000/teamRequirements", {
+    //   data: data,
+    // });
+    const rawResponse = await fetch("http://localhost:5000/teamRequirements", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const content = await rawResponse.json();
+    console.log(content);
+    const pi_param = content.data;
 
-    e.preventDefault();
+    setMsg(pi_param);
+
+    alert("The team structure can now be downloaded!");
+    // e.preventDefault();
+    // e.stopPropagation();
+    // console.log(global, "hello world!!");
+    // e.nativeEvent.stopImmediatePropagation();
+    // return true;
   };
 
   const handleTeamNumInput = (e) => {
@@ -86,7 +103,10 @@ const FormInput = (props) => {
   return (
     <div className={styles.flex__container}>
       <div>
-        <form className={styles.input__container} onSubmit={submitHandler}>
+        <form
+          className={styles.input__container}
+          // onSubmit={(e) => submitHandler(e)}
+        >
           <h2> Optimal Team Allocation</h2>
           <p>{msg}</p>
           <label htmlFor="numberOfTeams">Number of teams</label>
@@ -216,14 +236,14 @@ const FormInput = (props) => {
             </div>
           ))}
 
-          <Button type="submit" className={styles.btn} variant="contained">
+          <button onClick={submitHandler} className={styles.btn}>
             Generate Team
-          </Button>
+          </button>
         </form>
       </div>
       <div className={styles.chart__right}>
         <h2>Overview of Team Distribution</h2>
-        <OverviewChart />
+        <OverviewChart formData={msg} />
         <DownloadButton />
       </div>
     </div>
