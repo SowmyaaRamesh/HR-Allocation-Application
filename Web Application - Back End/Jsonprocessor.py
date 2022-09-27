@@ -82,7 +82,7 @@ list_of_names[index][i].append(tuple(name,var))
 
 
 def ExtractMaxlevels(reqr):
-    list_maxlvls=reqr["data"]["teamRequirements"]
+    list_maxlvls=reqr["teamRequirements"]
 
     # print(list_maxlvls)
     maxlvls=list()
@@ -161,14 +161,20 @@ def ExtractMaxlevels(reqr):
             except Exception as e:
                 print("Exception: ", temp,e)
     # print("came last")
-    path = "../Web Application - Front End/public/assets/"
-    writer = pd.ExcelWriter(path+'pandas_multiple.xlsx', engine='xlsxwriter')
+    path = "../Web Application - Front End/OutputFile/"
+    writer = pd.ExcelWriter(path+'pandas_multiple1.xlsx', engine='xlsxwriter')
+    Team_sizes=[]
     for i in range(len(Df_main)):
         # print("created")
         # print(Df_main[i].head())
         Df_main[i].to_excel(writer,sheet_name='Team{}'.format(i))
+        Team_sizes.append(str(Df_main[i].count().sum()))
     writer.save()
-    return "ok"
+    print("saved")
+    RetJson=dict()
+    RetJson["status"] ="ok"
+    RetJson["data"]=Team_sizes
+    return RetJson
     # return send_file(open(path+"pandas_multiple.xlsx",'rb'),attachment_filename="pandas_multiple.xlsx")
     # resp = make_response(file)
     # return resp
@@ -207,4 +213,3 @@ def ExtractData(jsondata):
         del data[""]
         simplified_data.append(data)
     return simplified_data
-

@@ -1,8 +1,11 @@
-import React from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+// import { Pie } from "react-chartjs-2";
+// import React, { useState, useEffect, useRef } from "react";
+// ChartJS.register(ArcElement, Tooltip, Legend);
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import React, { useRef, useEffect, useState } from "react";
+import Chart from 'chart.js/auto'
+
 
 const data = {
   labels: [
@@ -20,8 +23,7 @@ const data = {
   datasets: [
     {
       label: "# of people",
-
-      data: [1, 2, 3, 5, 6, 7, 0, 0, 0],
+      data: [1, 2, 0, 0, 0, 0, 0, 0, 0, 0],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -51,13 +53,68 @@ const data = {
   ],
 };
 
-function OverviewChart(props) {
-  data.datasets.data = props;
-  return (
-    <div>
-      <Pie data={data} />
-    </div>
-  );
+// function OverviewChart(props) {
+//   const [msg, setMsg] = useState(data);
+//   const ref = useRef()
+//   console.log("isnide overviewcahrt");
+//   console.log(props);
+//   console.log("assertion isarray", typeof props.props);
+//   if (typeof props.props === "object") {
+//     console.log("isnide overviewcahrt IFFFFFF");
+//     data.datasets.data = [];
+//     props.props.forEach((i) => {
+//       console.log("pushed", i);
+//       data.datasets.data.push(parseInt(i));
+//     });
+//     while (data.datasets.data.length < 10) {
+//       data.datasets.data.push(0);
+//     }
+//   }
+//   return (
+//     <div>
+//       <Pie data={data} ref = {ref}/>
+//     </div>
+//   );
+// }
+
+// export default OverviewChart;
+
+
+function OverviewChart( { formData } ){
+  console.log(formData)
+  const chartRef = useRef(null);
+  const [myChart, setMyChart] = useState(null);
+  useEffect(() => {
+    console.log("ac", data.datasets[0].data)
+    if (!chartRef) return;
+    const ctx = chartRef.current.getContext("2d");
+    const myChart = new Chart(ctx, {
+      type: "pie",
+      data: data
+    })
+    setMyChart(myChart);
+  }, [chartRef]);
+
+  useEffect(() => {
+    if (!myChart) return;
+    if (typeof formData === "object") {
+    console.log("isnide overviewcahrt IFFFFFF");
+    data.datasets[0].data = [];
+    formData.forEach((i) => {
+    console.log("pushed", i);
+    data.datasets[0].data.push(parseInt(i));
+  });
+  while (data.datasets[0].data.length < 10) {
+    data.datasets[0].data.push(0);
+  }
+  console.log(data.datasets[0].data)
 }
+  myChart.data.datasets[0].data = data.datasets[0].data;
+  myChart.update();
+  }, [formData, myChart]);
+
+  return <canvas ref={chartRef} id="myChart" width="400" height="400" />;
+};
 
 export default OverviewChart;
+
